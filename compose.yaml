@@ -1,0 +1,46 @@
+name: CityU-Hall-Laundry-Stats
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - 5679:5678
+    environment:
+      - GENERIC_TIMEZONE=Asia/Hong_Kong
+      - N8N_TEMPLATES_ENABLED=false
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows
+      - ./n8n/credentials:/credentials
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      GRAFANA_MONGO_PASSWORD: ${GRAFANA_MONGO_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    ports:
+      - 3001:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning
+      - ./dashboards:/etc/grafana/dashboards
+    depends_on:
+      - mongo
+
+volumes:
+  n8n_data:
+  grafana_data:
+  mongo_data:
+
