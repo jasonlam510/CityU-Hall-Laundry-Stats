@@ -4,8 +4,8 @@ This repository:
 1. Deploys n8n to fetch the CityU laundry status and stores it in MongoDB
 2. Visualizes the data with Grafana
 
-   > [!NOTE]
-   > The dashboard is not implemented yet! Feel free to contribute!
+> [!TIP]
+> The dashboard is not implemented yet! Feel free to contribute!
 
 
 ## Prerequisites
@@ -34,8 +34,8 @@ make start
 
 3. Activate the workflow in the n8n Web UI
 
-   > [!NOTE]
-   > The default trigger interval is 1 minute. Edit it if you want to save resources.
+> [!NOTE]
+> The default trigger interval is 1 minute. Edit it if you want to save resources.
 
 4. View the dashboard
 
