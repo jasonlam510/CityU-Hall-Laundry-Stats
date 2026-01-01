@@ -1,7 +1,7 @@
 # CityU-Hall-Laundry-Stats
 
 This repository:
-1. Deploys n8n to fetch the CityU laundry status and stores it in MongoDB
+1. Deploys n8n to fetch the CityU laundry status and stores it in influxDB
 2. Visualizes the data with Grafana
 
 > [!TIP]
