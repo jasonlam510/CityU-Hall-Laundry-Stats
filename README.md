@@ -7,39 +7,52 @@ This repository:
 > [!TIP]
 > The dashboard is not implemented yet! Feel free to contribute!
 
+## Installation
 
-## Prerequisites
+### Prerequisites
 
 - Docker
 
-## Installation
+### Config InfluxDB 
 
-1. Run the commands to start and initialize the containers:
+1. Create an operator token
 
-```bash
-make init-env
-make start
+Run this command to get the admin token. [ref](https://docs.influxdata.com/influxdb3/core/get-started/setup/?t=Docker#create-an-operator-token)
+
+```
+docker exec -it influxdb3-core influxdb3 create token --admin
 ```
 
-2. Configure n8n
+2. Conect the influx core with explorer at [http://localhost:8888/](http://localhost:8888/)
 
-   Access the n8n Web UI at [http://localhost:5679](http://localhost:5679) (or use the port you manually edited in `./compose.yaml`).
+3. Add new server with the token you generated
+![](docs/influx_explorer_add_new_server.png)
+
+4. Manage Databases > Create New
+
+- Database Name: `cityu_laundry_db`
+
+### Config n8n
+
+1. Initialize your n8n account at [http://localhost:5679](http://localhost:5679)
 
    - Initialize your n8n account
    - Import the workflows and credentials:
 
-   ```bash
-   make init-n8n
-   ```
+2. Import the workflow
 
-3. Activate the workflow in the n8n Web UI
+```bash
+make init-n8n
+```
+
+3. Replace your InfluxDB token in the `Save to InfluxDB` node
+
+![](docs/n8n_save_to_influxdb.png)
+
+2. Activate the workflow in the n8n Web UI
 
 > [!NOTE]
 > The default trigger interval is 1 minute. Edit it if you want to save resources.
-
-4. View the dashboard
-
-   Access the Grafana at [http://localhost:3001](http://localhost:3001)
 
 ## Remove All Data
 
